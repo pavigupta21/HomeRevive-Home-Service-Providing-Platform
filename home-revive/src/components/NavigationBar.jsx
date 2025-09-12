@@ -1,9 +1,16 @@
-import React from "react";
+
+import React, { useState } from "react";
 import userlogo from '../assets/User.png'; 
 import homelogo from '../assets/Homelogo.png';
 import doorlogo from '../assets/doorlogo.png';
+import star_nav from '../assets/star_nav.png';
+import service_nav from '../assets/service_nav.png';
+import logout_nav from '../assets/logout_nav.png';
+import { Link } from "react-router-dom";
+
 
 export const NavigationBar = () => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   return (
     <nav className="bg-[#5d3fee] text-white px-8 py-5 shadow-md">
       <div className="max-w-8xl mx-auto flex justify-between items-center">
@@ -29,16 +36,36 @@ export const NavigationBar = () => {
 
         {/* Center Menu */}
         <ul className="flex space-x-12">
-          <li><a href="#" className="hover:underline">Home</a></li>
-          <li><a href="#" className="hover:underline">About Us</a></li>
-          <li><a href="#" className="hover:underline">Services</a></li>
-          <li><a href="#" className="hover:underline">Rewards</a></li>
+          <li><Link to="/" className="hover:underline">Home</Link></li>
+          <li><Link to="/aboutus" className="hover:underline">About Us</Link></li>
+          <li><Link to="/services" className="hover:underline">Services</Link></li>
+          <li><Link to="/rewards" className="hover:underline">Rewards</Link></li>
         </ul>
 
         {/* Right-side: Login/Signup + User Icon */}
-        <div className="flex items-center space-x-4 mr-2">
-          <a href="#" className="hover:underline font-bold">Log in/Sign up</a>
-          <img src={userlogo} alt="User Icon" className="h-9 w-9 rounded-full" />
+        <div className="relative flex items-center space-x-4 mr-2">
+          <Link to="/login" className="hover:underline font-bold">Log in/Sign up</Link>
+          <img src={userlogo} alt="User Icon"  onClick={() => setIsDropdownOpen(!isDropdownOpen)} className="h-9 w-9 rounded-full cursor-pointer hover:ring-2 hover:ring-[#5D35EE] hover:ring-offset-2 transition" 
+          />
+           {/* Dropdown Menu */}
+            {isDropdownOpen && (
+              <div className="absolute right-0 mt-[200px] [font-family:'Inter','Regular'] text-[20px] w-[227px] mr-[5px] bg-[#C5B9EF] text-black rounded-[10px]  shadow-lg z-50">
+                <ul className="flex flex-col divide-y divide-black">
+                  <li className="px-4 py-3 hover:bg-[#B4A2CB]  cursor-pointer flex items-center space-x-2">
+                    <img src={star_nav} alt="Reviews" className="h-8 w-8" />
+                    <Link to="/reviews">Reviews</Link>
+                  </li>
+                  <li className="px-4 py-3 hover:bg-[#B4A2CB] cursor-pointer flex items-center space-x-2">
+                    <img src={service_nav} alt="Service History" className="h-6 w-6" />
+                    <Link to="/servicehistory">Service History</Link>
+                  </li>
+                  <li className="px-4 py-3 hover:bg-[#B4A2CB] cursor-pointer flex items-center space-x-2">
+                    <img src={logout_nav} alt="Log Out" className="h-7 w-7" />
+                    <Link to="/login">Log Out</Link>
+                  </li>
+                </ul>
+              </div>
+            )}
         </div>
       </div>
     </nav>

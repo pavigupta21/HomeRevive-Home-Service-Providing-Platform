@@ -1,16 +1,17 @@
 import React from 'react'
 import { NavigationBar } from "../components/NavigationBar";
-import repairAbout from "../assets/repair_about.png";
-import cleaningAbout from "../assets/cleaning_about.png";
-import paintingAbout from "../assets/painting_about.png";
+import repairAbout from "../assets/aintenance.mp4";
+import cleaningAbout from "../assets/Cleaning.mp4";
+import paintingAbout from "../assets/Painting.mp4";
 import smileAbout from "../assets/smile_about.png";
 import professionalAbout from "../assets/professional_about.png";
 import cityAbout from "../assets/city_about.png";
 import starAbout from "../assets/star_about.png";
-import ourStoryAbout from "../assets/ourStory_about.png";
+import ourStoryAbout from "../assets/ourStory_about.jpg";
 import phoneAbout from "../assets/phone_about.png";
 import messageAbout from "../assets/message_about.png";
 import bagAbout from "../assets/bag_about.png";
+import {Link} from 'react-router-dom';
 
 export const About = () => {
   return (
@@ -36,47 +37,56 @@ export const About = () => {
                 Explore Our Services
                 </l>
         </div>
-    <div className="flex  md:flex-row justify-center items-center gap-1 mt-10 ">
+    <div className="flex flex-wrap md:flex-row justify-center items-center gap-1 mt-10 ">
   {/* Service 1 */}
   <div className="flex flex-col items-center">
-    <div className="h-[230px] flex items-center">
-      <img
+    <div className="h-[230px] w-auto flex items-center">
+      <video
         src={repairAbout}
         alt="Repair Service"
-        className="max-h-[250px] w-auto object-contain"
+        autoPlay
+        muted
+        loop
+        className=" h-[230px] w-auto object-contain"
       />
     </div>
-    <button className="mt-4 w-[170px] h-[60px] py-2 bg-[#300dad] text-white text-[18px] font-bold rounded-lg shadow hover:bg-[#603ce1]">
+    <Link to="/services" state={{category:"Repair"}} className="mt-4 w-[170px] text-center py-[20px] bg-[#300dad] text-white text-[18px] font-bold rounded-lg shadow hover:bg-[#603ce1]">
       Repair
-    </button>
+    </Link>
   </div>
 
   {/* Service 2 */}
   <div className="flex flex-col items-center">
     <div className="h-[230px] flex items-center">
-      <img
+      <video
         src={cleaningAbout}
         alt="Cleaning Service"
-        className="max-h-[250px] w-auto object-contain"
+        className="h-[200px] w-auto object-contain"
+        autoPlay
+        muted
+        loop
       />
     </div>
-    <button className="mt-4 w-[170px] h-[60px] py-2 bg-[#300dad] text-white text-[18px] font-bold rounded-lg shadow hover:bg-[#603ce1]">
+    <Link to="/services" state={{category:"Cleaning"}} className="mt-4 text-center w-[170px]  py-[20px] bg-[#300dad] text-white text-[18px] font-bold rounded-lg shadow hover:bg-[#603ce1]">
       Cleaning
-    </button>
+    </Link>
   </div>
 
   {/* Service 3 */}
   <div className="flex flex-col items-center">
     <div className="h-[230px] flex items-center">
-      <img
+      <video
         src={paintingAbout}
         alt="Painting Service"
-        className="max-h-[250px] w-auto object-contain"
+        className="h-[250px] w-auto object-contain"
+        autoPlay
+        muted
+        loop
       />
     </div>
-    <button className="mt-4 w-[170px] h-[60px] py-2 bg-[#300dad] text-white text-[18px] font-bold rounded-lg shadow hover:bg-[#603ce1]">
+    <Link to="/services" state={{category:"Painting"}} className="text-center mt-4 w-[170px]  py-[20px] bg-[#300dad] text-white text-[18px] font-bold rounded-lg shadow hover:bg-[#603ce1]">
       Painting
-    </button>
+    </Link>
   </div>
 </div>
 
@@ -161,7 +171,7 @@ export const About = () => {
         <img
           src={ourStoryAbout}
           alt="Our Story"
-          className=" w-full  object-contain h-auto shrink-0"
+          className=" w-[536px]  object-contain h-[805px] shrink-0 rounded-[30px]"
         />
     </div>
 </div> 
@@ -170,7 +180,7 @@ export const About = () => {
     <p className="text-[48px] text-[#62606b] [font-family:'Istok_Web-Bold',Helvetica] ">Get In Touch</p>
   </div>
     {/* Contact Section */}
-    <div className="flex flex-wrap gap-[120px] justify-center items-center ">
+    <div className="flex flex-wrap gap-[120px] justify-center items-center mb-[30px]">
       {/*Customer Support*/}
       <div className="flex-col justify-center items-center mt-[50px]">
         <div className="flex justify-center items-center">

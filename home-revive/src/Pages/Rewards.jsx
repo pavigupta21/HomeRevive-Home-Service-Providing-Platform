@@ -1,5 +1,5 @@
 import { NavigationBar } from "../components/NavigationBar";
-import trophyRewards from "../assets/trophy_rewards.png";
+import trophyRewards from "../assets/trophy-star.png";
 import { curr_points } from "../constants_and_dataset/points";
 import { RewardsData } from "../constants_and_dataset/rewards_data"
 import { Reward_card } from "../components/RewardCard";
@@ -16,7 +16,7 @@ export const Rewards = () => {
         </div>
         <div className="w-[611px] h-[272px] bg-[#704bb4]/14 mx-auto mt-[25px] rounded-[15px] flex flex-col items-center justify-center">
             <img
-                className="w-[100px] h-[100px]"
+                className="w-[100px] h-[100px] animate-bounce"
                 src={trophyRewards}
                 alt="Trophy Rewards"
             />

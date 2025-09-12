@@ -2,6 +2,7 @@ import React from 'react';
 import { NavigationBar } from '../components/NavigationBar';
 import googleLogo from '../assets/google_logo.png';
 import metaLogo from '../assets/meta_logo.png';
+import {Link} from 'react-router-dom';
 
 export const Signup = () => {
   return (
@@ -13,14 +14,16 @@ export const Signup = () => {
         <h1 className="font-bold text-[#300dad] text-[40px] text-center">
           HomeRevive
         </h1>
-        <p className="font-bold text-[#300dad] text-3xl text-center mt-0">
-          Sign Up
-        </p>
       </div>
 
       {/* Signup Card */}
+      
       <div className="w-full flex justify-center mt-[120px]">
-        <div className="bg-white rounded-[40px] px-10 py-8 shadow-md w-[430px] flex flex-col items-center">
+        
+        <div className="bg-white rounded-[40px] px-10 py-8 shadow-md w-[430px] flex flex-col items-center mb-[30px]">
+          <p className="font-bold text-[#300dad] text-3xl text-center mb-[10px]">
+          Sign Up
+        </p>
           
           {/* Full Name */}
           <div className="mb-2 w-full flex flex-col items-center">
@@ -114,9 +117,9 @@ export const Signup = () => {
           </div>
 
           {/* Sign up Button */}
-          <button className="w-[150px] h-10 bg-[#5d35ee] text-white rounded-lg text-base font-medium hover:bg-[#472dd1] transition">
+          <Link to="/home" className="  text-center w-[150px] py-[10px] bg-[#5d35ee] text-white rounded-lg text-base font-medium hover:bg-[#472dd1] transition">
             Sign up
-          </button>
+          </Link>
         </div>
       </div>
     </div>

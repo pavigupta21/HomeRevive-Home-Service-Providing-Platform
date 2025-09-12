@@ -1,10 +1,11 @@
 import React from "react";
 import { NavigationBar } from "../components/NavigationBar";
 import servicesImage from "../assets/servicesImage.png";
-import repairHome from "../assets/repair_home.png";
-import cleaningHome from "../assets/cleaning_home.png";
-import paintingHome from "../assets/painting_home.png";
+import repairHome from "../assets/repairHome.mp4";
+import cleaningHome from "../assets/home_clean.mp4";
+import paintingHome from "../assets/Paint.mp4";
 import servicesVideo from "../assets/services_video.mp4";
+import { Link } from "react-router-dom";
 
 export const Home = () => {
   return (
@@ -31,38 +32,53 @@ export const Home = () => {
     <div className="left-[0px] top-[40px] absolute">
   {/* Repair */}
   <div className="flex flex-col items-center absolute left-0 top-[260px]">
-    <img
-      className="w-[247px] h-[139px] object-cover"
+    <video
+      className="w-auto h-[139px] object-cover mt-[10px]"
       src={repairHome}
       alt="Repair"
+      autoPlay
+      loop
     />
-    <button className="mt-[0px] w-[127px] py-2 bg-[#300dad] text-white text-[18px] font-bold rounded shadow hover:bg-[#603ce1]">
+    <Link
+    to="/services"
+     state={{category:"Repair"}}
+     className="mt-[0px] w-[127px] text-center py-2 bg-[#300dad] text-white text-[18px] font-bold rounded shadow hover:bg-[#603ce1]">
       Repair
-    </button>
+    </Link>
   </div>
 
   {/* Cleaning */}
   <div className="flex flex-col items-center absolute left-[160px] top-[260px]">
-    <img
-      className="w-[247px] h-[139px] object-cover"
+    <video
+      className="w-[247px] h-[139px] object-cover mt-[10px]"
       src={cleaningHome}
       alt="Cleaning"
+      autoPlay
+      loop
     />
-    <button className="mt-[0px] w-[128px] py-2 bg-[#300dad] text-white text-[18px] font-bold rounded shadow hover:bg-[#603ce1]">
+    <Link 
+      to ="/services"
+      state={{category:"Cleaning"}}
+    className="mt-[0px] w-[128px] text-center py-2 bg-[#300dad] text-white text-[18px] font-bold rounded shadow hover:bg-[#603ce1]">
       Cleaning
-    </button>
+    </Link>
   </div>
 
   {/* Painting */}
   <div className="flex flex-col items-center absolute left-[325px] top-[275px]">
-    <img
-      className="w-[160px] h-[100px] object-cover"
+    <video
+      className="w-[100px] h-[100px] object-cover mt-[10px]"
       src={paintingHome}
       alt="Painting"
+      autoPlay
+      loop
     />
-    <button className="mt-[25px] w-[126px] py-2 bg-[#300dad] text-white text-[18px] font-bold rounded shadow hover:bg-[#603ce1]">
+    <Link 
+    to="/services"
+     state={{category:"Painting"}}
+    className="mt-[25px] w-[126px] text-center py-2 bg-[#300dad] text-white text-[18px] font-bold rounded shadow hover:bg-[#603ce1]">
       Painting
-    </button>
+    </Link>
   </div>
   </div>
 </div>
@@ -71,7 +87,7 @@ export const Home = () => {
 <div className="relative w-[680px] h-[548px] flex-shrink-0">
   {/* Phone Image */}
   <img
-    className="w-full h-full object-cover rounded-lg shadow-lg"
+    className="w-full h-full object-cover rounded-[34px] shadow-lg"
     src={servicesImage}
     alt="Services"
   />
