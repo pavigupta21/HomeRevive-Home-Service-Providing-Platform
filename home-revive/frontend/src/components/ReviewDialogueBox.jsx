@@ -188,7 +188,7 @@ const ReviewDialogueBox = ({ isOpen, onClose, onReviewAdded }) => {
             <button 
               type="submit"
               disabled={isSubmitting}
-              className="px-4 py-2 bg-[#EADDFF] w-[125px] h-[40px] rounded-[100px] hover:bg-purple-300 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="flex justify-center items-center bg-[#EADDFF] w-[125px] h-[40px] rounded-[100px] hover:bg-purple-300 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               <span className="text-[#4F378A] text-[14px] font-semibold">
                 {isSubmitting ? "Submitting..." : "Submit Review"}

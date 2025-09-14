@@ -14,6 +14,7 @@ export const Login = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
 
   const handleInputChange = (e) => {
     setFormData({
@@ -27,6 +28,10 @@ export const Login = () => {
     
     if (!formData.email || !formData.password) {
       setError('Please fill in all fields');
+      return;
+    }
+     if (!acceptedTerms) {   
+      setError('You must agree to the Terms of Service and Privacy Policy');
       return;
     }
 
@@ -71,7 +76,7 @@ export const Login = () => {
 
       {/* Login Card */}
       <div className="w-full flex justify-center mt-[180px]">
-        <div className="bg-white rounded-[40px] px-10 py-10 shadow-md w-[430px] flex flex-col items-center">
+        <div className="bg-white rounded-[40px] p-6 shadow-md w-[430px] flex flex-col items-center">
       <p className="font-bold text-[#300dad] text-3xl text-center mb-[20px]">
           Login
         </p>
@@ -130,34 +135,42 @@ export const Login = () => {
           
 
           {/* Sign up */}
-          <p className="text-[15px] mb-4">
+          <p className="text-[15px] mb-4 text-center">
             <span className="text-black">Don’t Have An Account? </span>
             <Link to="/signup" className="text-[#300dad] hover:underline">Sign Up Here</Link>
           </p>
           {/* Terms checkbox */}
-          <div className="flex items-center text-[10px] text-black mb-4 w-[340px] whitespace-nowrap">
+          <div className="flex justify-center w-full mb-4 ">
+            <div className="flex justify-center items-center text-[10px] text-black mb-4  whitespace-nowrap">
             <input
               type="checkbox"
               id="terms"
+              checked={acceptedTerms}
+              onChange={(e) => setAcceptedTerms(e.target.checked)}
               className="mr-2 w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
             />
             <label htmlFor="terms" className="leading-4">
               By continuing, you agree to our <a href="#" className="underline">Terms of Service</a> and <a href="#" className="underline">Privacy Policy</a>
             </label>
           </div>
+          </div>
+          
 
           {/* Login Button */}
-          <button 
-            type="submit"
-            disabled={isSubmitting}
-            className={`w-[150px] text-center py-[10px] text-white rounded-lg text-base font-medium transition ${
-              isSubmitting 
-                ? 'bg-gray-400 cursor-not-allowed' 
-                : 'bg-[#5d35ee] hover:bg-[#472dd1]'
-            }`}
-          >
-            {isSubmitting ? 'Logging in...' : 'Log in'}
-          </button>
+          <div className="flex justify-center">
+                <button 
+              type="submit"
+              disabled={isSubmitting}
+              className={`w-[150px] text-center py-[10px] text-white rounded-lg text-base font-medium transition ${
+                isSubmitting 
+                  ? 'bg-gray-400 cursor-not-allowed' 
+                  : 'bg-[#5d35ee] hover:bg-[#472dd1]'
+              }`}
+            >
+              {isSubmitting ? 'Logging in...' : 'Log in'}
+            </button>
+          </div>
+         
         </form>
         </div>
       </div>

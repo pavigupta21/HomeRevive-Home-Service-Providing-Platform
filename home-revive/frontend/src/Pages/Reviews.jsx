@@ -9,6 +9,7 @@ export const Reviews = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [averageRating, setAverageRating] = useState(0);
+  
 
   useEffect(() => {
     fetchAllReviews();
@@ -94,13 +95,13 @@ export const Reviews = () => {
             <p className="text-gray-500">Be the first to share your experience!</p>
           </div>
         ) : (
-          <div className="max-w-4xl mx-auto space-y-6 mt-8">
+          <div className="max-w-4xl ml-[200px] space-y-6 mt-8">
             {reviews.map((review) => (
-              <div key={review.id} className="bg-white rounded-lg shadow-md border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+              <div key={review.id} className="bg-[#704bb4]/12 rounded-lg  border border-gray-200 p-6">
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                      <span className="text-purple-600 font-semibold text-lg">
+                    <div className="w-12 h-12 bg-[#c1b2e8] rounded-full flex items-center justify-center">
+                      <span className="text-[#4f378a] font-semibold text-lg">
                         {review.userName.charAt(0).toUpperCase()}
                       </span>
                     </div>
@@ -113,20 +114,15 @@ export const Reviews = () => {
                     <div className="flex items-center space-x-1 mb-1">
                       {renderStars(review.rating)}
                     </div>
-                    <span className="text-sm text-gray-500">{review.rating}/5</span>
+                    <span className="text-[#000000]/58 [font-family:'Istok Web']">{formatDate(review.createdAt)}</span>
                   </div>
                 </div>
                 
-                <p className="text-gray-700 mb-4 leading-relaxed">
+                <p className="text-black mb-4 leading-relaxed">
                   {review.comment}
                 </p>
                 
-                <div className="flex items-center justify-between text-sm text-gray-500">
-                  <span>{formatDate(review.createdAt)}</span>
-                  <span className="bg-purple-100 text-purple-800 px-2 py-1 rounded-full text-xs">
-                    {review.serviceName}
-                  </span>
-                </div>
+                
               </div>
             ))}
           </div>

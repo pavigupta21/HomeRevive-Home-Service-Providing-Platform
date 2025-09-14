@@ -223,7 +223,7 @@ export const BookSlot=()=>{
                     </div>
                 </div>
                 {/* Customer Details */}
-                <div className="flex flex-col justify-start bg-white h-auto py-1 rounded-[20px] border border-[#D5D5D5] shadow-[0px_2px_6px_0px_rgba(0,0,0,0.1)] mt-[5px]">
+                <div className="flex flex-col justify-start bg-white h-auto py-1 rounded-[20px] border border-[#D5D5D5] shadow-[0px_2px_6px_0px_rgba(0,0,0,0.1)] mt-[5px] mb-[10px]">
                   <span className="text-black text-[22px] [font-family:'Inter'] font-semibold ml-[20px] mt-[3px] mb-[10px]">Customer Details</span>
                   <div className="grid grid-cols-2 gap-[15px] ml-[20px] mb-[40px]">
                         <div className="flex flex-col">

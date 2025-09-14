@@ -19,6 +19,7 @@ export const Signup = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+   const [acceptedTerms, setAcceptedTerms] = useState(false);
 
   const handleInputChange = (e) => {
     setFormData({
@@ -45,7 +46,10 @@ export const Signup = () => {
       setError('Password must be at least 6 characters long');
       return;
     }
-
+     if (!acceptedTerms) {   
+      setError('You must agree to the Terms of Service and Privacy Policy');
+      return;
+    }
     try {
       setIsSubmitting(true);
       setError('');
@@ -217,10 +221,12 @@ export const Signup = () => {
           </div>
 
           {/* Terms checkbox */}
-          <div className="flex items-center text-[10px] text-black mb-3 w-[340px] whitespace-nowrap">
+          <div className="flex justify-center items-center text-[10px] text-black mb-3  whitespace-nowrap">
             <input
               type="checkbox"
               id="terms"
+              checked={acceptedTerms}
+              onChange={(e) => setAcceptedTerms(e.target.checked)}
               className="mr-2 w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
             />
             <label htmlFor="terms" className="leading-4">
@@ -229,7 +235,8 @@ export const Signup = () => {
           </div>
 
           {/* Sign up Button */}
-          <button 
+          <div className="flex justify-center">
+              <button 
             type="submit"
             disabled={isSubmitting}
             className={`text-center w-[150px] py-[10px] text-white rounded-lg text-base font-medium transition ${
@@ -240,6 +247,8 @@ export const Signup = () => {
           >
             {isSubmitting ? 'Signing up...' : 'Sign up'}
           </button>
+          </div>
+          
         </form>
         </div>
       </div>

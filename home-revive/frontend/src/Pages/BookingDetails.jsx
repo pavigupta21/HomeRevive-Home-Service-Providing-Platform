@@ -2,9 +2,23 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { NavigationBar } from '../components/NavigationBar'
+import { authUtils } from '../utils/api';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 export const BookingDetails = () => {
+   const navigate = useNavigate();
+   const [error, setError] = useState('');
+ const HandleAuth = (sub, category) => {
+  if (!authUtils.isAuthenticated()) {
+    setError('Please login/sign up to book a service');
+    return;
+  }
+  navigate(`/services/${sub.name}/book/${sub.name}/slot`, {
+    state: { sub, category }
+  });
+};
   const location = useLocation();
   const sub = location.state?.sub;
   const category = location.state?.category;
@@ -115,9 +129,15 @@ export const BookingDetails = () => {
         <div className="flex flex-col justify-center items-center w-full h-auto leading-tight">
               <span className="text-[36px] [font-family: 'Inter'] ">{sub.starting_price}</span>
               <span className="text-[20px] [font-family: 'Inter'] text-[#B3AAAA] ">Starting price</span>
-              <Link  state={{ sub, category: location.state?.category }} to={`/services/${sub.name}/book/${sub.name}/slot`} className="bg-[#5D35EE] hover:bg-[#4e27a3] text-white w-full h-[44px] font-bold text-[20px] [font-family:'Inter'] rounded-[10px] mt-[20px] flex justify-center items-center">
+              {/* Error/Success Messages */}
+                  {error && (
+                    <div className="ml-[20px] mb-2 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg w-full mt-[10px] text-center">
+                      {error}
+                    </div>
+                  )}
+              <button onClick={() => HandleAuth(sub, location.state?.category)} to={`/services/${sub.name}/book/${sub.name}/slot`} className="bg-[#5D35EE] hover:bg-[#4e27a3] text-white w-full h-[44px] font-bold text-[20px] [font-family:'Inter'] rounded-[10px] mt-[20px] flex justify-center items-center">
                 Book A Slot
-              </Link>
+              </button>
         </div>
         {/* book now details */}
         <div className="flex flex-col justify-start w-full h-auto gap-[10px] mt-[10px]">
