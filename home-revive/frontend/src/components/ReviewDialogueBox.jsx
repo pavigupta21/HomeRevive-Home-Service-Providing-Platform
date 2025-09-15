@@ -188,16 +188,16 @@ const ReviewDialogueBox = ({ isOpen, onClose, onReviewAdded }) => {
             <button 
               type="submit"
               disabled={isSubmitting}
-              className="flex justify-center items-center bg-[#EADDFF] w-[125px] h-[40px] rounded-[100px] hover:bg-purple-300 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="flex justify-center items-center bg-[#EADDFF] min-w-[125px] px-4 h-[40px] rounded-[100px] hover:bg-purple-300 disabled:opacity-50 disabled:cursor-not-allowed transition-colors whitespace-nowrap"
             >
-              <span className="text-[#4F378A] text-[14px] font-semibold">
+              <span className="text-[#4F378A] text-[14px] font-semibold leading-none">
                 {isSubmitting ? "Submitting..." : "Submit Review"}
               </span>
             </button>
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 bg-[#514E52]/15 text-[#4F378A] w-[125px] h-[40px] font-semibold rounded-[100px] hover:bg-gray-300 transition-colors"
+              className="px-4 py-2 bg-[#514E52]/15 text-[#4F378A] min-w-[125px] h-[40px] font-semibold rounded-[100px] hover:bg-gray-300 transition-colors"
             >
               <span className="text-[#4F378A] font-semibold text-[14px]">
                 Cancel

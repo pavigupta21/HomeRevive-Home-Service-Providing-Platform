@@ -55,6 +55,13 @@ export const authAPI = {
     });
   },
 
+  oauthGoogle: async (credential) => {
+    return apiCall('/auth/google', {
+      method: 'POST',
+      body: JSON.stringify({ credential }),
+    });
+  },
+
   getCurrentUser: async () => {
     return apiCall('/auth/me');
   },

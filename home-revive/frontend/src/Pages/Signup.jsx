@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { NavigationBar } from '../components/NavigationBar';
 import googleLogo from '../assets/google_logo.png';
-import metaLogo from '../assets/meta_logo.png';
 import {Link, useNavigate} from 'react-router-dom';
 import { authAPI, authUtils } from '../utils/api';
 
@@ -37,6 +36,20 @@ export const Signup = () => {
       return;
     }
 
+    // Email and phone validation
+    const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/;
+    const phoneRegex = /^\+?[0-9]{10,15}$/;
+
+    if (!emailRegex.test(formData.email)) {
+      setError('Please enter a valid email address');
+      return;
+    }
+
+    if (formData.phoneNumber && !phoneRegex.test(formData.phoneNumber)) {
+      setError('Please enter a valid phone number');
+      return;
+    }
+
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match');
       return;
@@ -58,6 +71,7 @@ export const Signup = () => {
       const signupData = {
         name: formData.name,
         email: formData.email,
+        phoneNumber: formData.phoneNumber || undefined,
         password: formData.password
       };
 
@@ -217,7 +231,6 @@ export const Signup = () => {
           </div>
           <div className="flex justify-center items-center gap-6 mb-2">
             <img src={googleLogo} alt="Google logo" className="w-5 h-5" />
-            <img src={metaLogo} alt="Meta logo" className="w-12 h-2" />
           </div>
 
           {/* Terms checkbox */}
@@ -235,7 +248,7 @@ export const Signup = () => {
           </div>
 
           {/* Sign up Button */}
-          <div className="flex justify-center">
+          <div className="w-full flex justify-center">
               <button 
             type="submit"
             disabled={isSubmitting}

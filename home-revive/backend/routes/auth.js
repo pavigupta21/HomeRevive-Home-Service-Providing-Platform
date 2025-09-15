@@ -1,5 +1,6 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const { OAuth2Client } = require('google-auth-library');
 const User = require('../models/User');
 const auth = require('../middleware/auth');
 
@@ -15,7 +16,25 @@ const generateToken = (userId) => {
 // @access  Public
 router.post('/signup', async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, phoneNumber } = req.body;
+
+    // Basic server-side validations
+    const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/;
+    const phoneRegex = /^\+?[0-9]{10,15}$/;
+
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Please provide a valid email address'
+      });
+    }
+
+    if (phoneNumber && !phoneRegex.test(phoneNumber)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Please provide a valid phone number'
+      });
+    }
 
     // Check if user already exists
     const existingUser = await User.findOne({ email });
@@ -30,6 +49,7 @@ router.post('/signup', async (req, res) => {
     const user = new User({
       name,
       email,
+      phoneNumber,
       password
     });
 
@@ -133,3 +153,52 @@ router.get('/me', auth, async (req, res) => {
 });
 
 module.exports = router;
+
+// Google OAuth - Verify ID token and login/signup
+router.post('/google', async (req, res) => {
+  try {
+    const { credential } = req.body;
+    const clientId = process.env.GOOGLE_CLIENT_ID;
+
+    if (!credential) {
+      return res.status(400).json({ success: false, message: 'Missing Google credential' });
+    }
+    if (!clientId) {
+      return res.status(500).json({ success: false, message: 'Google client not configured' });
+    }
+
+    const client = new OAuth2Client(clientId);
+    const ticket = await client.verifyIdToken({ idToken: credential, audience: clientId });
+    const payload = ticket.getPayload();
+
+    const email = payload.email;
+    const emailVerified = payload.email_verified;
+    const name = payload.name || email?.split('@')[0] || 'User';
+
+    if (!email || !emailVerified) {
+      return res.status(400).json({ success: false, message: 'Unverified Google account' });
+    }
+
+    let user = await User.findOne({ email });
+    if (!user) {
+      // Create a user with a random password since password is required
+      const randomPassword = Math.random().toString(36).slice(-12) + Date.now().toString(36);
+      user = new User({ name, email, password: randomPassword });
+      await user.save();
+    }
+
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
+
+    return res.json({
+      success: true,
+      message: 'Google login successful',
+      data: {
+        user: { id: user._id, name: user.name, email: user.email },
+        token
+      }
+    });
+  } catch (error) {
+    console.error('Google OAuth error:', error);
+    return res.status(500).json({ success: false, message: 'Failed to verify Google login' });
+  }
+});
