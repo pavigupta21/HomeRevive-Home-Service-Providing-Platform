@@ -1,1 +1,0 @@
-export let curr_points = 850;

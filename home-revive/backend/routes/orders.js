@@ -1,5 +1,6 @@
 const express = require('express');
 const Order = require('../models/Order');
+const User = require('../models/User');
 const auth = require('../middleware/auth');
 
 const router = express.Router();
@@ -112,8 +113,15 @@ router.put('/:orderId', auth, async (req, res) => {
       });
     }
 
+    const previousStatus = order.status;
     order.status = status;
     await order.save();
+
+    // Award points if transitioning to completed from a non-completed state
+    if (previousStatus !== 'completed' && status === 'completed') {
+      // 50 points per completed service
+      await User.findByIdAndUpdate(req.user._id, { $inc: { points: 50 } });
+    }
 
     res.json({
       success: true,

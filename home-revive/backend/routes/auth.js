@@ -65,7 +65,8 @@ router.post('/signup', async (req, res) => {
         user: {
           id: user._id,
           name: user.name,
-          email: user.email
+          email: user.email,
+          points: user.points || 0
         },
         token
       }
@@ -114,7 +115,8 @@ router.post('/login', async (req, res) => {
         user: {
           id: user._id,
           name: user.name,
-          email: user.email
+          email: user.email,
+          points: user.points || 0
         },
         token
       }
@@ -139,7 +141,8 @@ router.get('/me', auth, async (req, res) => {
         user: {
           id: req.user._id,
           name: req.user.name,
-          email: req.user.email
+          email: req.user.email,
+          points: req.user.points || 0
         }
       }
     });
@@ -193,7 +196,7 @@ router.post('/google', async (req, res) => {
       success: true,
       message: 'Google login successful',
       data: {
-        user: { id: user._id, name: user.name, email: user.email },
+        user: { id: user._id, name: user.name, email: user.email, points: user.points || 0 },
         token
       }
     });

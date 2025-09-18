@@ -1,5 +1,6 @@
 const express = require('express');
 const Review = require('../models/Review');
+const User = require('../models/User');
 const auth = require('../middleware/auth');
 
 const router = express.Router();
@@ -34,6 +35,9 @@ router.post('/', auth, async (req, res) => {
     });
 
     await review.save();
+
+    // Award points for creating a review (25 points)
+    await User.findByIdAndUpdate(req.user._id, { $inc: { points: 25 } });
 
     res.status(201).json({
       success: true,

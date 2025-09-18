@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { NavigationBar } from '../components/NavigationBar';
-import googleLogo from '../assets/google_logo.png';
 import {Link, useNavigate} from 'react-router-dom';
 import { authAPI, authUtils } from '../utils/api';
 
@@ -26,6 +25,8 @@ export const Signup = () => {
       [e.target.name]: e.target.value
     });
   };
+
+  
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -225,13 +226,7 @@ export const Signup = () => {
             />
           </div>
 
-          {/* Social login */}
-          <div className="text-[#625f6b] text-base text-center mb-2">
-            Or sign up with
-          </div>
-          <div className="flex justify-center items-center gap-6 mb-2">
-            <img src={googleLogo} alt="Google logo" className="w-5 h-5" />
-          </div>
+          
 
           {/* Terms checkbox */}
           <div className="flex justify-center items-center text-[10px] text-black mb-3  whitespace-nowrap">

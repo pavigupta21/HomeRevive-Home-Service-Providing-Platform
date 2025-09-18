@@ -26,6 +26,11 @@ const userSchema = new mongoose.Schema({
     required: [true, 'Password is required'],
     minlength: [6, 'Password must be at least 6 characters long']
   },
+  points: {
+    type: Number,
+    default: 0,
+    min: [0, 'Points cannot be negative']
+  },
   createdAt: {
     type: Date,
     default: Date.now

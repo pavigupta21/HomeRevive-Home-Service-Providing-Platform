@@ -118,6 +118,13 @@ export const authUtils = {
     localStorage.setItem('userData', JSON.stringify(userData));
     localStorage.setItem('authToken', token);
   },
+  updateUserPoints: (newPoints) => {
+    const data = getUserData();
+    if (data) {
+      const updated = { ...data, points: newPoints };
+      localStorage.setItem('userData', JSON.stringify(updated));
+    }
+  },
 
   clearAuthData: () => {
     localStorage.removeItem('userData');

@@ -1,12 +1,14 @@
 import { NavigationBar } from "../components/NavigationBar";
 import trophyRewards from "../assets/trophy-star.png";
-import { curr_points } from "../constants_and_dataset/points";
+import { authUtils } from "../utils/api";
 import { RewardsData } from "../constants_and_dataset/rewards_data"
 import { Reward_card } from "../components/RewardCard";
 import ToolReward from "../assets/tool_reward.png";
 import StarReward from "../assets/star_reward.png";
 
 export const Rewards = () => {
+  const user = authUtils.getCurrentUser();
+  const points = user?.points || 0;
   return (
     <>
         <div><NavigationBar /></div>
@@ -22,7 +24,7 @@ export const Rewards = () => {
             />
             <div className="flex flex-col items-center mt-[5px]">
                     <p className="[font-family:'Istok_Web-Bold',Helvetica] text-[48px] text-[#5C32AF] leading-[68px]">
-                        {curr_points}
+                        {points}
                     </p>
                     <p className="[font-family:'Istok_Web-Bold',Helvetica] text-[20px] text-[#62606b] leading-none">
                         your points
