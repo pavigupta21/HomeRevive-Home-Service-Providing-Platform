@@ -63,7 +63,8 @@ export const BookSlot=()=>{
   // Handle booking submission
   const handleBooking = async (e) => {
     e.preventDefault();
-    
+    console.log("sub object at booking:", sub);
+    console.log("image being sent:", sub?.image);
     // Validation
     if (!selectedTime || !selectedDate) {
       setError('Please select both date and time');
@@ -112,8 +113,10 @@ export const BookSlot=()=>{
         bookingDate: bookingDate.toISOString(),
         price: parseInt(sub.starting_price.replace('₹', '').replace(',', '')),
         location: customerDetails.address,
-        serviceType: category.toLowerCase()
+        serviceType: category.toLowerCase(),
       };
+      console.log("sub object:", sub);
+      console.log("image being sent:", sub.image);
 
       // Create order
       const response = await ordersAPI.createOrder(orderData);
@@ -122,7 +125,7 @@ export const BookSlot=()=>{
       
       // Redirect to service history after 2 seconds
       setTimeout(() => {
-        navigate('/servicehistory');
+        navigate('/servicehistory',{ state: { sub } });
       }, 2000);
 
     } catch (err) {

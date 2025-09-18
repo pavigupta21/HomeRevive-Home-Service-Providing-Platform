@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { NavigationBar } from '../components/NavigationBar'
 import { ordersAPI, authUtils } from '../utils/api'
+import { useLocation } from 'react-router-dom';
+
 
 export const ServiceHistory = () => {
   const [orders, setOrders] = useState([]);
@@ -113,9 +115,9 @@ export const ServiceHistory = () => {
               <div key={order.id} className="bg-white rounded-lg shadow-md border border-gray-200 p-6 hover:shadow-lg transition-shadow">
                 <div className="flex items-start justify-between">
                   <div className="flex items-start space-x-4">
-                    <div className="text-4xl">
+                      <div className="text-4xl">
                       {getServiceIcon(order.serviceType)}
-                    </div>
+                    </div>                      
                     <div className="flex-1">
                       <h3 className="text-xl font-semibold text-gray-900 mb-2">
                         {order.serviceName}

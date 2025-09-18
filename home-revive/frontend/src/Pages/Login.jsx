@@ -204,7 +204,7 @@ export const Login = () => {
             </div>
 
             {/* Sign up */}
-            <p className="text-[15px] mb-4">
+            <p className="text-[15px] mb-4 text-center">
               <span className="text-black">Don’t Have An Account? </span>
               <Link to="/signup" className="text-[#300dad] hover:underline">Sign Up Here</Link>
             </p>
