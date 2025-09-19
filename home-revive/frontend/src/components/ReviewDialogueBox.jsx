@@ -89,7 +89,17 @@ const ReviewDialogueBox = ({ isOpen, onClose, onReviewAdded }) => {
         comment: comment.trim()
       };
 
-      await reviewsAPI.createReview(reviewData);
+      const response = await reviewsAPI.createReview(reviewData);
+      
+      // Update user points in localStorage (add 25 points for review)
+      const currentUser = authUtils.getCurrentUser();
+      if (currentUser) {
+        const newPoints = (currentUser.points || 0) + 25;
+        authUtils.updateUserPoints(newPoints);
+        
+        // Show success message with points earned
+        alert(`Review submitted successfully! You earned 25 points! Total points: ${newPoints}`);
+      }
       
       // Reset form
       setSelectedService("");

@@ -37,6 +37,30 @@ export const ServiceHistory = () => {
     }
   };
 
+  const handleOrderStatusUpdate = async (orderId, newStatus) => {
+    try {
+      await ordersAPI.updateOrderStatus(orderId, newStatus);
+      
+      // If order is being marked as completed, update user points
+      if (newStatus === 'completed') {
+        const currentUser = authUtils.getCurrentUser();
+        if (currentUser) {
+          const newPoints = (currentUser.points || 0) + 50;
+          authUtils.updateUserPoints(newPoints);
+          
+          // Show success message with points earned
+          alert(`Service completed! You earned 50 points! Total points: ${newPoints}`);
+        }
+      }
+      
+      // Refresh orders to show updated status
+      fetchUserOrders();
+    } catch (err) {
+      console.error('Error updating order status:', err);
+      setError('Failed to update order status');
+    }
+  };
+
   const getStatusColor = (status) => {
     switch (status) {
       case 'scheduled':
@@ -157,6 +181,14 @@ export const ServiceHistory = () => {
                     <span className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(order.status)}`}>
                       {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
                     </span>
+                    {order.status === 'scheduled' && (
+                      <button
+                        onClick={() => handleOrderStatusUpdate(order.id, 'completed')}
+                        className="px-3 py-1 bg-green-500 text-white text-xs rounded-full hover:bg-green-600 transition-colors"
+                      >
+                        Mark Complete
+                      </button>
+                    )}
                     <span className="text-xs text-gray-500">
                       Booked on {formatDate(order.createdAt)}
                     </span>

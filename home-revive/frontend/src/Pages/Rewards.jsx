@@ -1,14 +1,33 @@
 import { NavigationBar } from "../components/NavigationBar";
 import trophyRewards from "../assets/trophy-star.png";
-import { authUtils } from "../utils/api";
+import { authUtils, authAPI } from "../utils/api";
 import { RewardsData } from "../constants_and_dataset/rewards_data"
 import { Reward_card } from "../components/RewardCard";
 import ToolReward from "../assets/tool_reward.png";
 import StarReward from "../assets/star_reward.png";
+import { useState, useEffect } from "react";
 
 export const Rewards = () => {
-  const user = authUtils.getCurrentUser();
-  const points = user?.points || 0;
+  const [user, setUser] = useState(authUtils.getCurrentUser());
+  const [points, setPoints] = useState(user?.points || 0);
+
+  useEffect(() => {
+    // Refresh user data when component mounts
+    const refreshUserData = async () => {
+      try {
+        const userData = await authAPI.getCurrentUser();
+        if (userData.success) {
+          authUtils.setAuthData(userData.data.user, localStorage.getItem('authToken'));
+          setUser(userData.data.user);
+          setPoints(userData.data.user.points || 0);
+        }
+      } catch (error) {
+        console.error('Error refreshing user data:', error);
+      }
+    };
+
+    refreshUserData();
+  }, []);
   return (
     <>
         <div><NavigationBar /></div>
