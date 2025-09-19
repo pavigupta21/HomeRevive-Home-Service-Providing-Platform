@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { NavigationBar } from '../components/NavigationBar'
 import { ordersAPI, authUtils } from '../utils/api'
+import date_icon from '../assets/date_icon.png'
+import location_icon from '../assets/location_icon.png'
 import { useLocation } from 'react-router-dom';
 
 
@@ -92,8 +94,8 @@ export const ServiceHistory = () => {
   return (
     <>
       <div><NavigationBar /></div>
-      <div className="px-6 py-8">
-        <h1 className="[font-family:'Istok Web'] font-extrabold tracking-tight text-[40px] mb-8">
+      <div className="px-6 py-8 ml-[100px] mt-[30px]">
+        <h1 className="[font-family:'Istok Web'] font-extrabold tracking-tight text-[40px] mb-[40px]">
           My Service History
         </h1>
 
@@ -112,29 +114,42 @@ export const ServiceHistory = () => {
         ) : (
           <div className="space-y-6">
             {orders.map((order) => (
-              <div key={order.id} className="bg-white rounded-lg shadow-md border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+              <div key={order.id} className="bg-[#A6A0B2]/26 rounded-lg w-[819px] h-[180px] shadow-md border border-gray-200 p-6 hover:shadow-lg transition-shadow">
                 <div className="flex items-start justify-between">
                   <div className="flex items-start space-x-4">
                       <div className="text-4xl">
                       {getServiceIcon(order.serviceType)}
                     </div>                      
-                    <div className="flex-1">
-                      <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                    <div className="flex-1 ">
+                      <p className="text-[20px] [font-family:'Istok web']  text-black mb-2">
                         {order.serviceName}
-                      </h3>
-                      <div className="space-y-2 text-gray-600">
-                        <p className="flex items-center">
-                          <span className="font-medium mr-2">📅</span>
-                          {formatDate(order.bookingDate)}
-                        </p>
-                        <p className="flex items-center">
-                          <span className="font-medium mr-2">💰</span>
-                          ₹{order.price}
-                        </p>
-                        <p className="flex items-center">
-                          <span className="font-medium mr-2">📍</span>
-                          {order.location}
-                        </p>
+                      </p>
+                      <div className="space-y-2 text-black">
+                          <p className="flex items-center">
+                            <span className="text-[20px] mr-2">
+                              <img 
+                               src={date_icon}
+                               className="h-6 w-6 object-contain"
+                                />
+                            </span>
+                            {formatDate(order.bookingDate)}
+                          </p>
+                          <div className="flex justify-start gap-[200px]">
+                            <p className="flex text-[32px] [font-family:'Istok Web'] text-black items-center">
+                             
+                              ₹{order.price}
+                            </p>
+                            <p className="flex items-center text-[20px]">
+                              <span className="font-medium mr-2">
+                                <img 
+                               src={location_icon}
+                               className="h-6 w-6 object-contain"
+                                />
+                              </span>
+                              {order.location}
+                            </p>
+                        </div>
+                        
                       </div>
                     </div>
                   </div>
