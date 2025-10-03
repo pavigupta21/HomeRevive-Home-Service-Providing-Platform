@@ -10,6 +10,7 @@ import {Routes, Route} from 'react-router-dom';
 import { Services } from './Services.jsx';
 import {BookingDetails} from './BookingDetails.jsx';
 import {BookSlot} from './BookSlot.jsx';
+import BackgroundAudio from '../components/BackgroundAudio.jsx';
 import '../index.css'
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
        <Route path="/services/:subName" element={<BookingDetails />} />
        <Route path="/services/:subName/book/:subName/slot" element={< BookSlot/>} />
       </Routes>
+      <BackgroundAudio />
     </>
   )
 }
