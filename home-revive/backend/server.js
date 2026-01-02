@@ -26,13 +26,13 @@ app.use(cors({
     'http://localhost:5173',
     'http://127.0.0.1:3000',
     'http://127.0.0.1:5173',
-    'https://home-revive-home-services-provider.netlify.app'
+    'https://home-revive-home-service-provider.netlify.app'
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
-
+app.options('*', cors());
 
 // Routes
 app.use('/api/auth', authRoutes);
