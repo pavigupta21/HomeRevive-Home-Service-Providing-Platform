@@ -4,7 +4,7 @@ A **user-centric home service booking platform** built using **React** and desig
 
 Users can explore, book, track, and review home services like **repair, cleaning, and painting** through a clean and intuitive interface.
 
-🔗 Live Demo: https://home-revive-home-services-provider.netlify.app/
+🔗 Live Demo: https://homerevive-home-service-provider.netlify.app/
 
 ## ✨ Features
 - HCI-driven clean UI
