@@ -52,14 +52,28 @@ export const NavigationBar = () => {
         <div className="flex items-center space-x-2 ml-1">
           
           {/* Relative wrapper for house + door */}
-          <div className="relative h-12 w-12">
+          {/* <div className="relative h-12 w-12">
             <img src={homelogo} alt="Home Logo" className="h-12 w-12 rounded-full" />
             <img
               src={doorlogo}
               alt="Door Logo"
-              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/12 h-4 w-5"
+              className="absolute top-[55%] left-1/2 transform -translate-x-1/2 -translate-y-1/12 h-4 w-5 block"
             />
-          </div>
+          </div> */}
+          <div className="relative h-12 w-12">
+          <img
+            src={homelogo}
+            alt="Home Logo"
+            className="h-12 w-12 rounded-full block"
+          />
+
+          <img
+            src={doorlogo}
+            alt="Door Logo"
+            className="absolute bottom-[9px] left-[14px] h-4 w-5 block"
+          />
+        </div>
+
 
           <div>
             <div className="text-xl font-bold leading-tight">HomeRevive</div>
