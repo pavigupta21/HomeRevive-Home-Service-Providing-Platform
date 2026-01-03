@@ -3,8 +3,12 @@ const Review = require('../models/Review');
 const User = require('../models/User');
 const auth = require('../middleware/auth');
 
-const router = express.Router();
 
+
+const router = express.Router();
+router.options('*', (req, res) => {
+  res.sendStatus(204);
+});
 // @route   POST /api/reviews
 // @desc    Add a review for a service
 // @access  Private

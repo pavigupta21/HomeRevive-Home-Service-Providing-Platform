@@ -33,9 +33,9 @@ export const About = () => {
             </div>
         </div>
          <div className="w-full text-center mt-[50px]">
-                <l className=" text-[32px]  [font-family:'Istok_Web-Bold',Helvetica] text-black tracking-[0] leading-10 mt-[80px] font-bold">
+                <li className=" text-[32px]  [font-family:'Istok_Web-Bold',Helvetica] text-black tracking-[0] leading-10 mt-[80px] font-bold">
                 Explore Our Services
-                </l>
+                </li>
         </div>
     <div className="flex flex-wrap md:flex-row justify-center items-center gap-1 mt-10 ">
   {/* Service 1 */}

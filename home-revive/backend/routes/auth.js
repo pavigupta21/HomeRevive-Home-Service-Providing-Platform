@@ -4,7 +4,11 @@ const { OAuth2Client } = require('google-auth-library');
 const User = require('../models/User');
 const auth = require('../middleware/auth');
 
+
 const router = express.Router();
+router.options('*', (req, res) => {
+  res.sendStatus(204);
+});
 
 // Generate JWT Token
 const generateToken = (userId) => {
@@ -155,7 +159,6 @@ router.get('/me', auth, async (req, res) => {
   }
 });
 
-module.exports = router;
 
 // Google OAuth - Verify ID token and login/signup
 router.post('/google', async (req, res) => {
@@ -205,3 +208,6 @@ router.post('/google', async (req, res) => {
     return res.status(500).json({ success: false, message: 'Failed to verify Google login' });
   }
 });
+
+
+module.exports = router;

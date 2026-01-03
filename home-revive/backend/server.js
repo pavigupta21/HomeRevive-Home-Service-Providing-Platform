@@ -3,90 +3,104 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config({ path: './config.env' });
 
-// Import routes
+// Routes
 const authRoutes = require('./routes/auth');
 const orderRoutes = require('./routes/orders');
 const reviewRoutes = require('./routes/reviews');
 
-// Import middleware
+// Middleware
 const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
 
-// Middleware
-// app.use(cors({
-//   origin: ['http://localhost:3000', 'http://localhost:5173', 'http://127.0.0.1:3000', 'http://127.0.0.1:5173','https://home-revive-home-services-provider.netlify.app/'],
-//   credentials: true
-// }));
-// app.use(express.json({ limit: '10mb' }));
-// app.use(express.urlencoded({ extended: true }));
-// app.use(cors({
-//   origin: [
-//     'http://localhost:3000',
-//     'http://localhost:5173',
-//     'http://127.0.0.1:3000',
-//     'http://127.0.0.1:5173',
-//     'https://home-revive-home-service-provider.netlify.app'
-//   ],
-//   credentials: true,
-//   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-//   allowedHeaders: ['Content-Type', 'Authorization']
-// }));
-// app.options('*', cors());
-// app.use(cors({
-//   origin: true,
-//   credentials: true
-// }));
-// app.options('*', cors());
-// 🔥 MUST BE FIRST
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", req.headers.origin);
-  res.header("Access-Control-Allow-Credentials", "true");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  );
-  res.header(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, DELETE, OPTIONS"
-  );
+/* ============================
+   ✅ CORS (FIXED & SAFE)
+   ============================ */
 
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(200);
-  }
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:5173',
+  'http://localhost:5174',
+  'https://home-revive-home-services-provider.netlify.app'
+];
 
-  next();
-});
+const corsOptions = {
+  origin: (origin, callback) => {
+    // allow requests with no origin (Postman, curl)
+    if (!origin) return callback(null, true);
 
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: [
+    'Content-Type',
+    'Authorization',
+    'X-Requested-With'
+  ],
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
+
+/* ============================
+   Body Parsers
+   ============================ */
 
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
-// Routes
+
+/* ============================
+   Routes
+   ============================ */
+app.use((req, res, next) => {
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(204);
+  }
+  next();
+});
+
 app.use('/api/auth', authRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/reviews', reviewRoutes);
 
-// Health check route
+/* ============================
+   Health Check
+   ============================ */
+
 app.get('/api/health', (req, res) => {
   res.json({
     success: true,
     message: 'HomeRevive Backend is running!',
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   });
 });
 
-// 404 handler
+/* ============================
+   404 Handler
+   ============================ */
+
 app.use('*', (req, res) => {
   res.status(404).json({
     success: false,
-    message: 'Route not found'
+    message: 'Route not found',
   });
 });
 
-// Error handling middleware
+/* ============================
+   Error Handler
+   ============================ */
+
 app.use(errorHandler);
 
-// MongoDB connection
+/* ============================
+   MongoDB Connection
+   ============================ */
+
 const connectDB = async () => {
   try {
     const conn = await mongoose.connect(process.env.MONGO_URI, {
@@ -101,24 +115,28 @@ const connectDB = async () => {
   }
 };
 
-// Connect to database
 connectDB();
+
+/* ============================
+   Server Start
+   ============================ */
 
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
-  console.log(`Health check: http://localhost:${PORT}/api/health`);
 });
 
-// Handle unhandled promise rejections
-process.on('unhandledRejection', (err, promise) => {
-  console.log('Unhandled Rejection at:', promise, 'reason:', err);
+/* ============================
+   Process Handlers
+   ============================ */
+
+process.on('unhandledRejection', (err) => {
+  console.error('Unhandled Rejection:', err);
   process.exit(1);
 });
 
-// Handle uncaught exceptions
 process.on('uncaughtException', (err) => {
-  console.log('Uncaught Exception:', err);
+  console.error('Uncaught Exception:', err);
   process.exit(1);
 });

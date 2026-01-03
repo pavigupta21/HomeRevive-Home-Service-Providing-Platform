@@ -3,7 +3,13 @@ const Order = require('../models/Order');
 const User = require('../models/User');
 const auth = require('../middleware/auth');
 
+
+
+
 const router = express.Router();
+router.options('*', (req, res) => {
+  res.sendStatus(204);
+});
 
 // @route   POST /api/orders
 // @desc    Create a new service booking
